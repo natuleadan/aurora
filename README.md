@@ -1,65 +1,45 @@
 # Natuleadan® Aurora™
 
-**Reusable, accessible UI components for Rust.**
+> Reusable, accessible UI components for Rust.
 
-`aurora` is a styled component layer built on Native Shell (NSH). One component
-model, one theme, and one set of behaviors for iOS, Android, macOS, Windows,
-Linux, the web, the terminal, and GPUI.
+## What it is
 
-> Status: batch 0 in progress. The showcase renders on the fixed port 23202.
+Aurora is a styled component layer built on Native Shell (NSH). One component model, one theme and one set of behaviors render natively across desktop, mobile, web, terminal and embedded surfaces.
 
 ## What it provides
 
-- A semantic theme with light and dark modes, a derived radius scale, and
-  exportable presets.
-- A catalog of components with typed variants and platform-native behavior.
-- A small class-composition utility for conditional class strings.
-- A design-system linter that explains violations to coding agents.
-- A CLI that scaffolds a project and copies component source into it, so you
-  own the code you ship.
-- A showcase application that runs as a website and as a native app on every
-  supported platform.
+It provides a semantic theme with presets, a catalog of typed components, a class-composition utility, a design-system linter and a CLI that copies component source into a project so you own what you ship.
 
-## Layout
+## Architecture
 
-| Path | Purpose |
-|---|---|
-| `apps/showcase/` | The showcase application (website and cross-platform gallery). |
-| `crates/aurora-tokens/` | Theme tokens, presets, spacing, typography. |
-| `crates/aurora-primitives/` | Shared styling and focus primitives. |
-| `crates/aurora-components/` | The component catalog. |
-| `crates/aurora-cn/` | Class composition and conflict resolution. |
-| `crates/aurora-lint/` | Design-system linter. |
-| `crates/aurora-registry/` | Component manifests and dependency graph. |
-| `crates/aurora-cli/` | The `aurora` command-line tool. |
-| `docs/`, `themes/`, `registry/` | Documentation and data files. |
-| `tools/` | Local validation entry point. |
+Dependencies point one way: tokens and class composition feed primitives and components, the registry and linter sit above them, and the CLI and showcase sit at the top of the graph.
 
-Dependencies point one way only: tokens and class composition feed primitives
-and components; the registry and linter sit above them; the CLI and the
-showcase sit at the top.
+## Repository layout
+
+The workspace holds library crates under `crates/`, the showcase under `apps/`, and product documentation under `docs/`. All source lives in the development branch until release.
+
+## Getting started
+
+Clone `https://github.com/natuleadan/aurora.git`. This branch holds only the
+project baseline; the source code, build manifests and full validation suite
+live in the `dev` branch. Switch to `dev` to build and run the project.
 
 ## Development
 
-Requires Rust 1.100 or newer, NSH 0.5.1, and pnpm.
+Work happens on short-lived branches merged into `dev`. Commits follow
+`type(scope): description` with a body of at least three bullets; commitlint
+enforces the policy locally and in CI. The `main` branch is protected and holds
+only this minimal baseline until the first release.
 
-```sh
-pnpm validate
-nsh run apps/showcase --target web --port 23202
-```
+## Status
 
-The showcase is served on the fixed port **23202**. Run the same checks locally
-that CI runs before opening a pull request; see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Documentation
-
-- [Architecture](docs/ARCHITECTURE.md)
-- [Components](docs/COMPONENTS.md)
-- [Theming](docs/THEMING.md)
-- [CLI](docs/CLI.md)
-- [Showcase](docs/SHOWCASE.md)
-- [Quality](docs/QUALITY.md)
+Active development. The component catalog and headless UI test matrix are in place; the first published version will be 0.1.0.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+Apache-2.0. See [LICENSE](LICENSE).
+
+## Trademark
+
+Natuleadan® Aurora™ is a trademark of Natuleadan. Other constellation
+repositories: Pulsar, Aurora, Pleaides, Andromeda and Orion.
