@@ -1,6 +1,9 @@
 use nsh_core::prelude::*;
 
 mod pages;
+
+pub use pages::login::login;
+pub use pages::testbed::testbed;
 mod router;
 mod shell;
 mod ui;

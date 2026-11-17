@@ -5,6 +5,7 @@ pub mod create;
 pub mod home;
 pub mod login;
 pub mod stubs;
+pub mod testbed;
 
 use nsh_core::prelude::*;
 
