@@ -1,0 +1,20 @@
+{
+  "cssVars": {
+    "theme": {
+      "radius": "0.75rem",
+      "font-sans": "system-ui, sans-serif"
+    },
+    "light": {
+      "primary": "oklch(0.541 0.281 293.009)",
+      "primary-foreground": "oklch(0.969 0.016 293.756)",
+      "ring": "var(--primary)",
+      "brand": "oklch(0.541 0.281 293.009)"
+    },
+    "dark": {
+      "primary": "oklch(0.702 0.183 293.541)",
+      "primary-foreground": "oklch(0.283 0.141 291.089)",
+      "ring": "var(--primary)",
+      "brand": "oklch(0.702 0.183 293.541)"
+    }
+  }
+}

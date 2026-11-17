@@ -1,0 +1,10 @@
+aurora is an independent implementation.
+
+All source code, documentation, examples, visual design, and assets in this
+repository are original work written for this project. No source code, text,
+assets, or names from other projects were copied, and no such project is
+imported as a dependency or cited in this repository, including its derivative
+projects.
+
+Runtime dependencies are listed in their own manifests. Generated third-party
+license notices are added when the dependency graph is established.
