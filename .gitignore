@@ -1,0 +1,8 @@
+target/
+.nsh/
+/.local/
+/.env
+/.nsh/out/
+/.nsh/cache/
+.DS_Store
+*.log
