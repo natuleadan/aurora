@@ -1,8 +1,5 @@
-//! Shared visual helpers for the showcase pages.
-
 use nsh_core::prelude::*;
 
-/// Small neutral chip used for announcements and metadata.
 pub fn chip(label: &'static str) -> impl IntoElement {
     view()
         .px_3()
@@ -17,7 +14,6 @@ pub fn chip(label: &'static str) -> impl IntoElement {
         )
 }
 
-/// Section heading with a quiet subtitle.
 pub fn section_title(title: &'static str, subtitle: &'static str) -> impl IntoElement {
     view()
         .gap_1()
@@ -33,7 +29,6 @@ pub fn section_title(title: &'static str, subtitle: &'static str) -> impl IntoEl
         )
 }
 
-/// A neutral card surface with a title and body.
 pub fn card(title: &'static str, body: &'static str) -> impl IntoElement {
     view()
         .max_w(px(420.0))
@@ -56,7 +51,6 @@ pub fn card(title: &'static str, body: &'static str) -> impl IntoElement {
         )
 }
 
-/// A quiet pill used for badges and labels.
 pub fn pill(label: &'static str) -> impl IntoElement {
     view()
         .px_3()

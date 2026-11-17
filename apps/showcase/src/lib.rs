@@ -1,26 +1,21 @@
-//! Aurora — a component showcase written entirely in Rust.
-//!
-//! The engine renders these elements with each platform's own views, so the
-//! same source is the website, the desktop app and the terminal surface.
-
 use nsh_core::prelude::*;
 
 mod pages;
+mod router;
 mod shell;
 mod ui;
 
-/// Components exported to an optional script entry by the engine.
 #[native_module("aurora/showcase")]
 fn native(registry: &mut Registry) {
     registry.register::<Showcase>();
 }
 
-/// Application root: one scrollable column with a shell and a route view.
 #[component]
 pub fn Showcase() -> impl IntoElement {
     let route = signal("Home");
     let menu = signal(false);
     let scheme = signal(0_u8);
+    router::start(route);
 
     scroll()
         .flex_1()
@@ -50,12 +45,39 @@ fn route_view(route: Signal<&'static str>) -> impl IntoElement {
         .child(when(move || route.get() == "Create", pages::create::create))
         .child(when(
             move || route.get() == "Components",
-            pages::home::gallery,
+            pages::stubs::components_index,
+        ))
+        .child(when(
+            move || route.get() == "Components",
+            pages::components_live::live,
+        ))
+        .child(when(move || route.get() == "Gallery", pages::home::gallery))
+        .child(when(
+            move || route.get() == "Installation",
+            pages::stubs::installation,
+        ))
+        .child(when(move || route.get() == "Blocks", pages::stubs::blocks))
+        .child(when(move || route.get() == "Charts", pages::stubs::charts))
+        .child(when(
+            move || route.get() == "Directory",
+            pages::stubs::directory,
+        ))
+        .child(when(
+            move || route.get() == "Typeset",
+            pages::stubs::typeset,
         ))
         .child(when(
             move || {
                 let r = route.get();
-                r != "Home" && r != "Create" && r != "Components"
+                r != "Home"
+                    && r != "Create"
+                    && r != "Components"
+                    && r != "Gallery"
+                    && r != "Installation"
+                    && r != "Blocks"
+                    && r != "Charts"
+                    && r != "Directory"
+                    && r != "Typeset"
             },
             move || pages::placeholder(route.get()),
         ))

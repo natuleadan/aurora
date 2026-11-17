@@ -68,6 +68,4 @@ nsh run apps/showcase --target web --port 23202
 - Tests are written in Rust. The engine runner executes them headlessly.
 - UI changes are verified through the DOM, never through screenshots.
 - The development port is fixed at 23202.
-- Reference material is inspiration only: it is never imported, copied or
-  mentioned anywhere, including its child projects and derivatives.
 - English everywhere, including comments and commit messages.

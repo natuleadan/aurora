@@ -1,8 +1,7 @@
-//! Application shell: header, navigation and footer.
-
 use nsh_core::prelude::*;
 
-/// Top bar with brand, navigation, search, theme toggle and the New action.
+use crate::router;
+
 pub fn header(
     route: Signal<&'static str>,
     menu: Signal<bool>,
@@ -101,7 +100,10 @@ fn new_button(route: Signal<&'static str>) -> impl IntoElement {
         .rounded(px(8.0))
         .bg(move || nsh_base::theme().primary)
         .active(|s| s.opacity(0.7))
-        .on_press(move || route.set("Create"))
+        .on_press(move || {
+            route.set("Create");
+            router::navigate("Create");
+        })
         .child(
             text("New")
                 .text_size(px(13.0))
@@ -145,11 +147,13 @@ fn nav_item(
         .py_1()
         .rounded(px(6.0))
         .hover(|s| s.bg(nsh_base::theme().muted))
-        .on_press(move || route.set(target))
+        .on_press(move || {
+            route.set(target);
+            router::navigate(target);
+        })
         .child(meta_text(label))
 }
 
-/// Bottom bar.
 pub fn footer() -> impl IntoElement {
     view()
         .py_6()

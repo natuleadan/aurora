@@ -6,7 +6,7 @@
 model, one theme, and one set of behaviors for iOS, Android, macOS, Windows,
 Linux, the web, the terminal, and GPUI.
 
-> Status: batch 0 in progress. The showcase renders on the fixed port 23202.
+> Status: the showcase renders on the fixed port 23202.
 
 ## What it provides
 

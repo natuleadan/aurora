@@ -1,5 +1,3 @@
-//! Runs the showcase directly on the machine's native backend.
-
 #![cfg_attr(target_os = "windows", windows_subsystem = "windows")]
 
 #[cfg(target_os = "linux")]

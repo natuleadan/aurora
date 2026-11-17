@@ -1,11 +1,7 @@
-//! The landing page and the component gallery.
-
 use nsh_core::prelude::*;
 
 use crate::ui;
 
-/// Landing page: our own design, with the same block structure as a reference
-/// showcase (chip, statement, supporting copy, two calls to action).
 pub fn home(route: Signal<&'static str>) -> impl IntoElement {
     view().flex_1().gap_6().child(hero(route)).child(gallery())
 }
@@ -36,7 +32,7 @@ fn hero(route: Signal<&'static str>) -> impl IntoElement {
                 .flex_row()
                 .items_center()
                 .gap_3()
-                .child(cta("Explore components", "Components", route))
+                .child(cta("Explore components", "Gallery", route))
                 .child(cta("Open the designer", "Create", route)),
         )
 }
@@ -48,7 +44,10 @@ fn cta(label: &'static str, target: &'static str, route: Signal<&'static str>) -
         .rounded(px(8.0))
         .bg(move || nsh_base::theme().primary)
         .active(|s| s.opacity(0.7))
-        .on_press(move || route.set(target))
+        .on_press(move || {
+            route.set(target);
+            crate::router::navigate(target);
+        })
         .child(
             text(label)
                 .text_size(px(14.0))
@@ -56,7 +55,6 @@ fn cta(label: &'static str, target: &'static str, route: Signal<&'static str>) -
         )
 }
 
-/// Component gallery, reachable from the landing page and the nav item.
 pub fn gallery() -> impl IntoElement {
     view()
         .flex_1()

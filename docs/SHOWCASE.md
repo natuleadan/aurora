@@ -36,7 +36,7 @@ and a full-screen preview; charts; typeset; a community directory; and a
 visual preset builder.
 
 Each component page shows a description, a live demo, the CLI command to add
-it, a usage example, variants, and the API reference. Code samples are
+it, a usage example, variants, and API details. Code samples are
 generated from the real sources so they cannot go stale.
 
 ## Interactions
@@ -50,4 +50,4 @@ screens.
 ## Budget
 
 Pages and demos load on demand. Bundle size and time to first interaction are
-measured every batch; regressions need a justification.
+measured continuously; regressions need a justification.

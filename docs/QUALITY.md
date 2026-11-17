@@ -43,8 +43,8 @@ with explicit overrides.
 
 `aurora-cn` joins class fragments conditionally and resolves conflicts against
 the vocabulary the engine supports. It has no dependencies, exposes a macro and
-a function, and generates its conflict table from the engine's own class
-reference. It is allocation-light on the common path and has tests for padding,
+a function, and generates its conflict table from the engine's supported
+classes. It is allocation-light on the common path and has tests for padding,
 margin, color, radius, display, and variant conflicts.
 
 ## Tests

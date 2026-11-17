@@ -1,6 +1,3 @@
-//! The preset designer: a dynamic panel whose controls update the preview and
-//! generate a reusable command.
-
 use nsh_core::prelude::*;
 
 use crate::ui;
@@ -16,7 +13,6 @@ const RADII: [&str; 3] = ["Default", "Compact", "Round"];
 const MENUS: [&str; 3] = ["Solid", "Subtle", "Outline"];
 const ACCENTS: [&str; 3] = ["Subtle", "Muted", "Strong"];
 
-/// Builds the command from the current selection. Pure so it can be tested.
 fn preset_command(values: &[usize; 10]) -> String {
     let pick = |options: &[&str], index: usize| -> String {
         options[index % options.len()].to_ascii_lowercase()
@@ -64,7 +60,6 @@ fn current_command(
     ])
 }
 
-/// The two-step designer page.
 pub fn create() -> impl IntoElement {
     let style = signal(0_usize);
     let base = signal(0_usize);

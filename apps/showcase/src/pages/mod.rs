@@ -1,11 +1,10 @@
-//! Showcase pages.
-
+pub mod components_live;
 pub mod create;
 pub mod home;
+pub mod stubs;
 
 use nsh_core::prelude::*;
 
-/// A section that has not been implemented yet in this batch.
 pub fn placeholder(title: &'static str) -> impl IntoElement {
     view()
         .flex_1()
@@ -16,7 +15,7 @@ pub fn placeholder(title: &'static str) -> impl IntoElement {
                 .font_weight(FontWeight::BOLD),
         )
         .child(
-            text("This section is being built in a later batch.")
+            text("This section is not available yet.")
                 .text_size(px(14.0))
                 .text_color(move || nsh_base::theme().muted_foreground),
         )
