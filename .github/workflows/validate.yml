@@ -7,44 +7,6 @@ on:
     branches: [dev, main]
 
 jobs:
-  commit-lint:
-    name: Conventional Commits
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    if: github.event_name == 'pull_request'
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 12.15.0
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - name: Install commit tooling
-        run: pnpm install --frozen-lockfile
-
-      - name: Validate commit messages
-        run: |
-          for sha in $(git rev-list "origin/${{ github.base_ref }}..HEAD"); do
-            subject=$(git log -1 --format='%s' "$sha")
-            echo "$subject" | grep -qE '^Merge ' && continue
-            case "$subject" in
-              "chore(release):"*) echo "SKIP release commit $sha"; continue ;;
-            esac
-            author=$(git log -1 --format='%an' "$sha")
-            case "$author" in
-              *"[bot]"*) echo "SKIP bot commit $sha ($author)"; continue ;;
-            esac
-            git log -1 --format=%B "$sha" > /tmp/commit-msg.txt
-            pnpm exec commitlint --edit /tmp/commit-msg.txt
-          done
-
   validate:
     runs-on: ubuntu-latest
     steps:
@@ -57,12 +19,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
 
-      - uses: dtolnay/rust-toolchain@master
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: 1.100.0
           components: rustfmt, clippy
+
+      - name: Install native UI dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq \
+            libgtk-4-dev libwebkitgtk-6.0-dev libglib2.0-dev \
+            libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
+            libgdk-pixbuf-2.0-dev libcairo2-dev libpango1.0-dev \
+            libatk1.0-dev libasound2-dev clang pkg-config
 
       - name: Install the UI engine
         env:

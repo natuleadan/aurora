@@ -2,7 +2,9 @@
 
 > Reusable, accessible UI components for Rust.
 
-Aurora is a styled component layer built on Native Shell (NSH). One component model, one theme and one set of behaviors across desktop, mobile, web, terminal and embedded surfaces.
+Aurora is a styled component layer built on Native Shell (NSH). One component
+model, one theme and one set of behaviors across desktop, mobile, web, terminal
+and embedded surfaces.
 
 ## What it provides
 
@@ -23,7 +25,7 @@ Aurora is a styled component layer built on Native Shell (NSH). One component mo
 
 ## Development
 
-Requires Rust 1.100 or newer and pnpm. Run the same checks locally that CI
+Requires Rust 1.100 or newer, NSH and pnpm. Run the same checks locally that CI
 runs before opening a pull request.
 
 ```sh
@@ -33,6 +35,7 @@ pnpm validate
 ## Documentation
 
 - [Architecture](docs/ARCHITECTURE.md)
+- [Components](docs/COMPONENTS.md)
 - [Contributing](CONTRIBUTING.md)
 
 ## License

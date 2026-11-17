@@ -1,10 +1,9 @@
+node_modules/
 target/
 .nsh/
-aurora-registry.generated.json
 /.local/
 /.env
 /.nsh/out/
 /.nsh/cache/
 .DS_Store
 *.log
-/node_modules

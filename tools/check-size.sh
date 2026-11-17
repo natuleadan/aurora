@@ -8,12 +8,8 @@ while IFS= read -r file; do
     echo "FAIL $file has $lines lines"
     status=1
   fi
-done < <(find . -type f \
-  \( -name '*.rs' -o -name '*.md' -o -name '*.sh' \) \
-  -not -path './target/*' \
-  -not -path './apps/showcase/target/*' \
-  -not -path './apps/showcase/.nsh/*' \
-  -not -path './.git/*' \
-  -not -path './node_modules/*')
+done < <(find . \
+  -type d \( -name target -o -name node_modules -o -name .git -o -name .nsh \) -prune -o \
+  -type f \( -name '*.rs' -o -name '*.md' -o -name '*.sh' \) -print)
 
 exit "$status"
