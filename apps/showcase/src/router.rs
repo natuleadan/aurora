@@ -11,6 +11,7 @@ pub fn path_of(route: &'static str) -> &'static str {
         "Directory" => "/docs/directory",
         "Typeset" => "/typeset",
         "Create" => "/create",
+        "Command" => "/command",
         _ => "/",
     }
 }
@@ -32,6 +33,8 @@ pub fn route_of(url: &str) -> &'static str {
         "Typeset"
     } else if url.contains("/create") {
         "Create"
+    } else if url.contains("/command") {
+        "Command"
     } else {
         "Home"
     }

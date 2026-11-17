@@ -103,6 +103,71 @@ pub fn switch(label: &'static str) -> impl IntoElement {
         .child(text(label))
 }
 
+pub fn radio_group(options: &'static [(&'static str, &'static str)]) -> impl IntoElement {
+    let value = signal(options[0].0);
+    let mut group = nsh_base::radio_group().flex_col().gap_2();
+    for option in options {
+        let (id, label) = *option;
+        group = group.child(
+            nsh_base::radio()
+                .checked(move || value.get() == id)
+                .on_change(move |_: &bool| value.set(id))
+                .flex_row()
+                .items_center()
+                .gap_2()
+                .child(
+                    view()
+                        .size(px(18.0))
+                        .items_center()
+                        .justify_center()
+                        .rounded(px(999.0))
+                        .border_2()
+                        .border_color(move || nsh_base::theme().border)
+                        .checked(|s| s.border_color(nsh_base::theme().primary)),
+                )
+                .child(text(label).text_size(px(13.0))),
+        );
+    }
+    group
+}
+
+pub fn dialog_trigger(
+    label: &'static str,
+    title: &'static str,
+    body: &'static str,
+) -> impl IntoElement {
+    let open = signal(false);
+    view()
+        .gap_3()
+        .child(button(label, move || open.set(true)))
+        .child(when(open, move || {
+            nsh_base::dialog()
+                .on_cancel(move || open.set(false))
+                .p_6()
+                .gap_3()
+                .bg(move || nsh_base::theme().background)
+                .child(
+                    text(title)
+                        .text_size(px(18.0))
+                        .font_weight(FontWeight::BOLD),
+                )
+                .child(text(body).text_size(px(13.0)))
+                .child(button("Close", move || open.set(false)))
+        }))
+}
+
+pub fn hint(content: &'static str, message: &'static str) -> impl IntoElement {
+    view()
+        .tooltip(
+            nsh_base::tooltip()
+                .p_2()
+                .rounded(px(6.0))
+                .bg(move || nsh_base::theme().popover)
+                .child(text(message).text_size(px(12.0))),
+        )
+        .child(text(content).text_size(px(13.0)))
+}
+
 pub fn tabs(options: &'static [(&'static str, &'static str, &'static str)]) -> impl IntoElement {
     let current = signal(options[0].0);
     let mut list = nsh_base::tabs()

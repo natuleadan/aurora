@@ -63,21 +63,30 @@ pub fn directory() -> impl IntoElement {
 }
 
 pub fn blocks() -> impl IntoElement {
-    page(
-        "Blocks",
-        "Ready-made compositions you can copy into a project.",
-        &[
-            (
-                "Dashboard",
-                "A sidebar, summary cards, a chart and a data table.",
-            ),
-            (
-                "Authentication",
-                "Sign in and sign up screens with validation.",
-            ),
-            ("Settings", "A profile form with sections and toggles."),
-        ],
-    )
+    view()
+        .flex_1()
+        .gap_4()
+        .child(ui::section_title(
+            "Blocks",
+            "Ready-made compositions you can copy into a project.",
+        ))
+        .child(ui::card(
+            "Dashboard",
+            "A sidebar, summary cards, a chart and a data table.",
+        ))
+        .child(ui::card(
+            "Authentication",
+            "Sign in and sign up screens with validation.",
+        ))
+        .child(ui::card(
+            "Settings",
+            "A profile form with sections and toggles.",
+        ))
+        .child(ui::section_title(
+            "Preview",
+            "A block assembled from live components.",
+        ))
+        .child(super::components_live::live())
 }
 
 pub fn charts() -> impl IntoElement {

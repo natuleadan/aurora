@@ -15,7 +15,19 @@ pub fn live() -> impl IntoElement {
         .child(bar())
         .child(aurora_components::tabs(&TABS))
         .child(aurora_components::accordion(&ITEMS))
+        .child(aurora_components::dialog_trigger(
+            "Open dialog",
+            "A native dialog",
+            "It follows each platform's presentation and dismissal.",
+        ))
+        .child(aurora_components::hint(
+            "Hover me",
+            "A token-styled tooltip",
+        ))
+        .child(aurora_components::radio_group(&PLANS))
 }
+
+static PLANS: [(&str, &str); 3] = [("basic", "Basic"), ("pro", "Pro"), ("team", "Team")];
 
 static TABS: [(&str, &str, &str); 3] = [
     (

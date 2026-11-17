@@ -26,14 +26,24 @@ pub fn header(
                         .flex_row()
                         .items_center()
                         .gap_3()
-                        .child(search_field())
-                        .child(meta_text("Repository"))
+                        .child(search_field(route))
+                        .child(stars())
                         .child(theme_button(scheme))
                         .child(new_button(route))
-                        .child(menu_button(menu)),
+                        .child(when(
+                            move || window().width < px(600.0),
+                            move || menu_button(menu),
+                        )),
                 ),
         )
-        .child(when(move || menu.get(), move || nav_panel(route)))
+        .child(when(
+            move || window().width >= px(600.0),
+            move || nav_panel(route),
+        ))
+        .child(when(
+            move || window().width < px(600.0) && menu.get(),
+            move || nav_panel(route),
+        ))
 }
 
 fn brand() -> impl IntoElement {
@@ -57,14 +67,36 @@ fn brand() -> impl IntoElement {
         .child(meta_text("Rust components for every platform"))
 }
 
-fn search_field() -> impl IntoElement {
+fn search_field(route: Signal<&'static str>) -> impl IntoElement {
+    ui::button("Search...", ui::ButtonStyle::Outline, move || {
+        route.set("Command");
+        router::navigate("Command");
+    })
+}
+
+fn stars() -> impl IntoElement {
+    let count = signal("...".to_string());
+    spawn(async move {
+        if let Ok(response) = fetch("https://api.github.com/repos/natuleadan/aurora").await
+            && response.ok()
+            && let Ok(value) = serde_json::from_str::<serde_json::Value>(&response.text())
+            && let Some(number) = value.get("stargazers_count").and_then(|v| v.as_i64())
+        {
+            let label = if number >= 1000 {
+                format!("{}k", number / 1000)
+            } else {
+                number.to_string()
+            };
+            count.set(label);
+        }
+    });
     view()
-        .px_3()
-        .py_2()
-        .rounded(px(8.0))
+        .px_2()
+        .py_1()
+        .rounded(px(6.0))
         .border(px(1.0))
         .border_color(move || nsh_base::theme().border)
-        .child(meta_text("Search..."))
+        .child(text(move || count.get()).text_size(px(12.0)))
 }
 
 fn meta_text(label: &'static str) -> impl IntoElement {
