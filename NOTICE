@@ -1,10 +1,14 @@
-aurora is an independent implementation.
+NATULEADAN(R) PULSAR(TM)
+Copyright 2023 - Present NATULEADAN SAS BIC
 
-All source code, documentation, examples, visual design, and assets in this
-repository are original work written for this project. No source code, text,
-assets, or names from other projects were copied, and no such project is
-imported as a dependency or cited in this repository, including its derivative
-projects.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-Runtime dependencies are listed in their own manifests. Generated third-party
-license notices are added when the dependency graph is established.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

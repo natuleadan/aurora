@@ -2,7 +2,7 @@ use nsh_core::prelude::*;
 
 mod pages;
 
-pub use pages::login::login;
+pub use pages::blocks::blocks;
 pub use pages::testbed::testbed;
 mod router;
 mod shell;
@@ -43,7 +43,6 @@ fn route_view(route: Signal<&'static str>) -> impl IntoElement {
             move || route.get() == "Command",
             move || pages::command::command(route),
         ))
-        .child(when(move || route.get() == "Login", pages::login::login))
         .child(when(
             move || route.get() == "Components",
             pages::stubs::components_index,
@@ -53,7 +52,26 @@ fn route_view(route: Signal<&'static str>) -> impl IntoElement {
             move || route.get() == "Installation",
             pages::stubs::installation,
         ))
-        .child(when(move || route.get() == "Blocks", pages::stubs::blocks))
+        .child(when(
+            move || route.get() == "Blocks",
+            move || pages::blocks::blocks(route),
+        ))
+        .child(when(
+            move || route.get() == "BlocksSidebar",
+            move || pages::blocks::blocks(route),
+        ))
+        .child(when(
+            move || route.get() == "BlocksLogin",
+            move || pages::blocks::blocks(route),
+        ))
+        .child(when(
+            move || route.get() == "BlocksSignup",
+            move || pages::blocks::blocks(route),
+        ))
+        .child(when(
+            move || route.get().starts_with("View"),
+            move || pages::blocks::standalone(route.get()),
+        ))
         .child(when(move || route.get() == "Charts", pages::stubs::charts))
         .child(when(
             move || route.get() == "Directory",
@@ -69,11 +87,14 @@ fn route_view(route: Signal<&'static str>) -> impl IntoElement {
                 r != "Home"
                     && r != "Create"
                     && r != "Command"
-                    && r != "Login"
                     && r != "Components"
                     && r != "Gallery"
                     && r != "Installation"
                     && r != "Blocks"
+                    && r != "BlocksSidebar"
+                    && r != "BlocksLogin"
+                    && r != "BlocksSignup"
+                    && !r.starts_with("View")
                     && r != "Charts"
                     && r != "Directory"
                     && r != "Typeset"

@@ -13,6 +13,7 @@ done < <(find . -type f \
   -not -path './target/*' \
   -not -path './apps/showcase/target/*' \
   -not -path './apps/showcase/.nsh/*' \
-  -not -path './.git/*')
+  -not -path './.git/*' \
+  -not -path './node_modules/*')
 
 exit "$status"

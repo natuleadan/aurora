@@ -18,7 +18,7 @@ pub fn header(
             view()
                 .flex_row()
                 .items_center()
-                .gap_6()
+                .gap_3()
                 .child(brand())
                 .child(when(
                     move || window().width >= px(600.0),
@@ -29,7 +29,7 @@ pub fn header(
                     view()
                         .flex_row()
                         .items_center()
-                        .gap_3()
+                        .gap_2()
                         .child(search_field(route))
                         .child(stars())
                         .child(theme_button(scheme))
@@ -64,7 +64,10 @@ fn brand() -> impl IntoElement {
                 .text_size(px(20.0))
                 .font_weight(FontWeight::BOLD),
         )
-        .child(meta_text("Rust components for every platform"))
+        .child(when(
+            move || window().width >= px(1500.0),
+            move || meta_text("Rust components for every platform"),
+        ))
 }
 
 fn search_field(route: Signal<&'static str>) -> impl IntoElement {
@@ -141,7 +144,7 @@ fn nav_panel(route: Signal<&'static str>) -> impl IntoElement {
     view()
         .flex_row()
         .items_center()
-        .gap_2()
+        .gap_1()
         .child(nav_item("Home", route, "Home"))
         .child(nav_item("Docs", route, "Docs"))
         .child(nav_item("Components", route, "Components"))
@@ -150,7 +153,6 @@ fn nav_panel(route: Signal<&'static str>) -> impl IntoElement {
         .child(nav_item("Directory", route, "Directory"))
         .child(nav_item("Typeset", route, "Typeset"))
         .child(nav_item("Create", route, "Create"))
-        .child(nav_item("Login", route, "Login"))
 }
 
 fn nav_item(

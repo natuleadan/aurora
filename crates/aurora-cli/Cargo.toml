@@ -8,5 +8,4 @@ name = "aurora"
 path = "src/main.rs"
 
 [dependencies]
-aurora-registry = { path = "../aurora-registry" }
 aurora-tokens = { path = "../aurora-tokens" }

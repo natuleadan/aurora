@@ -95,7 +95,7 @@ static PRIMITIVES: &[(&str, &str, &str)] = &[
 ];
 
 pub fn table() -> impl IntoElement {
-    let mut body = view().flex_1().gap_1().child(header());
+    let mut body = view().gap_1().child(header());
     for (name, category, status) in ACTION
         .iter()
         .chain(FORMS.iter())

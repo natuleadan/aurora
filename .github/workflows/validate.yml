@@ -7,6 +7,44 @@ on:
     branches: [dev, main]
 
 jobs:
+  commit-lint:
+    name: Conventional Commits
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.15.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install commit tooling
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate commit messages
+        run: |
+          for sha in $(git rev-list "origin/${{ github.base_ref }}..HEAD"); do
+            subject=$(git log -1 --format='%s' "$sha")
+            echo "$subject" | grep -qE '^Merge ' && continue
+            case "$subject" in
+              "chore(release):"*) echo "SKIP release commit $sha"; continue ;;
+            esac
+            author=$(git log -1 --format='%an' "$sha")
+            case "$author" in
+              *"[bot]"*) echo "SKIP bot commit $sha ($author)"; continue ;;
+            esac
+            git log -1 --format=%B "$sha" > /tmp/commit-msg.txt
+            pnpm exec commitlint --edit /tmp/commit-msg.txt
+          done
+
   validate:
     runs-on: ubuntu-latest
     steps:

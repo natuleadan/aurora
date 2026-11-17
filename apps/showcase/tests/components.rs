@@ -8,8 +8,8 @@ fn Harness() -> impl IntoElement {
 }
 
 #[component]
-fn LoginHarness() -> impl IntoElement {
-    aurora_showcase::login()
+fn BlocksHarness() -> impl IntoElement {
+    aurora_showcase::blocks(signal("BlocksLogin"))
 }
 
 static ENGINE_LOCK: std::sync::Mutex<()> = std::sync::Mutex::new(());
@@ -124,10 +124,12 @@ fn route_home_shows_hero() {
 }
 
 #[test]
-fn login_page_renders() {
+fn login_block_renders_inside_showroom() {
     let _guard = ENGINE_LOCK.lock().unwrap_or_else(|e| e.into_inner());
-    let config = EngineConfig::new(Root::of::<LoginHarness>());
+    let config = EngineConfig::new(Root::of::<BlocksHarness>());
     let mut app = Headless::start(config).unwrap();
-    app.wait_for("text:Welcome back").unwrap();
-    assert!(app.screen().texts().contains(&"Sign in"));
+    app.wait_for("text:Blocks").unwrap();
+    assert!(app.screen().texts().contains(&"aurora add login-01"));
+    assert!(app.screen().texts().contains(&"Copy"));
+    assert!(app.screen().texts().contains(&"Signup"));
 }
