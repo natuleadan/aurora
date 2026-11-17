@@ -40,6 +40,7 @@ fn route_view(route: Signal<&'static str>) -> impl IntoElement {
             move || route.get() == "Command",
             move || pages::command::command(route),
         ))
+        .child(when(move || route.get() == "Login", pages::login::login))
         .child(when(
             move || route.get() == "Components",
             pages::stubs::components_index,
@@ -65,6 +66,7 @@ fn route_view(route: Signal<&'static str>) -> impl IntoElement {
                 r != "Home"
                     && r != "Create"
                     && r != "Command"
+                    && r != "Login"
                     && r != "Components"
                     && r != "Gallery"
                     && r != "Installation"

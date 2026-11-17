@@ -47,6 +47,8 @@ pub fn components_index() -> impl IntoElement {
             "Data",
             "Table, chart, badge, avatar and progress.",
         ))
+        .child(super::catalog::summary())
+        .child(super::catalog::table())
         .child(super::components_live::live())
 }
 

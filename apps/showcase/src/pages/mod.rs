@@ -1,7 +1,9 @@
+pub mod catalog;
 pub mod command;
 pub mod components_live;
 pub mod create;
 pub mod home;
+pub mod login;
 pub mod stubs;
 
 use nsh_core::prelude::*;

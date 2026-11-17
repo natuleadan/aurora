@@ -1,5 +1,7 @@
 use nsh_core::prelude::*;
 
+pub mod families;
+
 pub fn button(label: &'static str, on_press: impl Fn() + 'static) -> impl IntoElement {
     nsh_base::button()
         .on_press(move |_: &()| on_press())

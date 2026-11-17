@@ -150,6 +150,7 @@ fn nav_panel(route: Signal<&'static str>) -> impl IntoElement {
         .child(nav_item("Directory", route, "Directory"))
         .child(nav_item("Typeset", route, "Typeset"))
         .child(nav_item("Create", route, "Create"))
+        .child(nav_item("Login", route, "Login"))
 }
 
 fn nav_item(
