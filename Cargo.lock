@@ -133,9 +133,38 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "21e4227379beff4205943696e6c3e0cd809bacdf3f0edd6e3dd153e2269571a4"
 
 [[package]]
+name = "aurora-cli"
+version = "0.1.0"
+dependencies = [
+ "aurora-registry",
+ "aurora-tokens",
+]
+
+[[package]]
+name = "aurora-cn"
+version = "0.1.0"
+
+[[package]]
+name = "aurora-components"
+version = "0.1.0"
+dependencies = [
+ "nsh-base",
+ "nsh-core",
+]
+
+[[package]]
+name = "aurora-lint"
+version = "0.1.0"
+
+[[package]]
+name = "aurora-registry"
+version = "0.1.0"
+
+[[package]]
 name = "aurora-showcase"
 version = "0.1.0"
 dependencies = [
+ "aurora-components",
  "env_logger",
  "nsh-base",
  "nsh-core",
@@ -143,6 +172,10 @@ dependencies = [
  "nsh-platform-macos",
  "nsh-platform-windows",
 ]
+
+[[package]]
+name = "aurora-tokens"
+version = "0.1.0"
 
 [[package]]
 name = "autocfg"

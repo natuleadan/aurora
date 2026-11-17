@@ -38,21 +38,10 @@ fn hero(route: Signal<&'static str>) -> impl IntoElement {
 }
 
 fn cta(label: &'static str, target: &'static str, route: Signal<&'static str>) -> impl IntoElement {
-    view()
-        .px_4()
-        .py_2()
-        .rounded(px(8.0))
-        .bg(move || nsh_base::theme().primary)
-        .active(|s| s.opacity(0.7))
-        .on_press(move || {
-            route.set(target);
-            crate::router::navigate(target);
-        })
-        .child(
-            text(label)
-                .text_size(px(14.0))
-                .text_color(move || nsh_base::theme().primary_foreground),
-        )
+    ui::button(label, ui::ButtonStyle::Primary, move || {
+        route.set(target);
+        crate::router::navigate(target);
+    })
 }
 
 pub fn gallery() -> impl IntoElement {
@@ -68,10 +57,10 @@ pub fn gallery() -> impl IntoElement {
                 .flex_row()
                 .items_center()
                 .gap_3()
-                .child(action_button("Default", ActionKind::Primary))
-                .child(action_button("Secondary", ActionKind::Secondary))
-                .child(action_button("Outline", ActionKind::Outline))
-                .child(action_button("Ghost", ActionKind::Ghost)),
+                .child(action_button("Default", ui::ButtonStyle::Primary))
+                .child(action_button("Secondary", ui::ButtonStyle::Outline))
+                .child(action_button("Outline", ui::ButtonStyle::Outline))
+                .child(action_button("Ghost", ui::ButtonStyle::Ghost)),
         )
         .child(
             view()
@@ -88,39 +77,6 @@ pub fn gallery() -> impl IntoElement {
         ))
 }
 
-#[derive(Clone, Copy)]
-enum ActionKind {
-    Primary,
-    Secondary,
-    Outline,
-    Ghost,
-}
-
-fn action_button(label: &'static str, kind: ActionKind) -> impl IntoElement {
-    let pressed = signal(false);
-    view()
-        .px_4()
-        .py_2()
-        .rounded(px(8.0))
-        .border(px(1.0))
-        .border_color(move || match kind {
-            ActionKind::Outline => nsh_base::theme().border,
-            _ => nsh_base::theme().primary,
-        })
-        .bg(move || match kind {
-            ActionKind::Primary => nsh_base::theme().primary,
-            ActionKind::Secondary => nsh_base::theme().secondary,
-            ActionKind::Outline | ActionKind::Ghost => nsh_base::theme().background,
-        })
-        .active(|s| s.opacity(0.7))
-        .on_press(move || pressed.update(|value| *value = !*value))
-        .child(
-            text(label)
-                .text_size(px(14.0))
-                .text_color(move || match kind {
-                    ActionKind::Primary => nsh_base::theme().primary_foreground,
-                    ActionKind::Secondary => nsh_base::theme().secondary_foreground,
-                    ActionKind::Outline | ActionKind::Ghost => nsh_base::theme().foreground,
-                }),
-        )
+fn action_button(label: &'static str, kind: ui::ButtonStyle) -> impl IntoElement {
+    ui::button(label, kind, || {})
 }

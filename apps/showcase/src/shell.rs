@@ -1,6 +1,7 @@
 use nsh_core::prelude::*;
 
 use crate::router;
+use crate::ui;
 
 pub fn header(
     route: Signal<&'static str>,
@@ -69,19 +70,13 @@ fn meta_text(label: &'static str) -> impl IntoElement {
 }
 
 fn theme_button(scheme: Signal<u8>) -> impl IntoElement {
-    let label = move || match scheme.get() {
-        1 => "Light",
-        2 => "Dark",
-        _ => "System",
-    };
-    view()
-        .px_3()
-        .py_2()
-        .rounded(px(8.0))
-        .border(px(1.0))
-        .border_color(move || nsh_base::theme().border)
-        .hover(|s| s.bg(nsh_base::theme().muted))
-        .on_press(move || {
+    ui::dynamic_button(
+        move || match scheme.get() {
+            1 => "Light".to_string(),
+            2 => "Dark".to_string(),
+            _ => "System".to_string(),
+        },
+        move || {
             let next = (scheme.get() + 1) % 3;
             scheme.set(next);
             match next {
@@ -89,44 +84,28 @@ fn theme_button(scheme: Signal<u8>) -> impl IntoElement {
                 2 => set_color_scheme(Appearance::Dark),
                 _ => set_color_scheme(Appearance::System),
             }
-        })
-        .child(text(label).text_size(px(13.0)))
+        },
+    )
 }
 
 fn new_button(route: Signal<&'static str>) -> impl IntoElement {
-    view()
-        .px_4()
-        .py_2()
-        .rounded(px(8.0))
-        .bg(move || nsh_base::theme().primary)
-        .active(|s| s.opacity(0.7))
-        .on_press(move || {
-            route.set("Create");
-            router::navigate("Create");
-        })
-        .child(
-            text("New")
-                .text_size(px(13.0))
-                .text_color(move || nsh_base::theme().primary_foreground),
-        )
+    ui::button("New", ui::ButtonStyle::Primary, move || {
+        route.set("Create");
+        router::navigate("Create");
+    })
 }
 
 fn menu_button(menu: Signal<bool>) -> impl IntoElement {
-    view()
-        .px_3()
-        .py_2()
-        .rounded(px(8.0))
-        .border(px(1.0))
-        .border_color(move || nsh_base::theme().border)
-        .on_press(move || menu.update(|open| *open = !*open))
-        .child(text("Menu").text_size(px(13.0)))
+    ui::button("Menu", ui::ButtonStyle::Outline, move || {
+        menu.update(|open| *open = !*open)
+    })
 }
 
 fn nav_panel(route: Signal<&'static str>) -> impl IntoElement {
     view()
         .flex_row()
         .items_center()
-        .gap_4()
+        .gap_2()
         .child(nav_item("Home", route, "Home"))
         .child(nav_item("Docs", route, "Docs"))
         .child(nav_item("Components", route, "Components"))
@@ -142,16 +121,10 @@ fn nav_item(
     route: Signal<&'static str>,
     target: &'static str,
 ) -> impl IntoElement {
-    view()
-        .px_2()
-        .py_1()
-        .rounded(px(6.0))
-        .hover(|s| s.bg(nsh_base::theme().muted))
-        .on_press(move || {
-            route.set(target);
-            router::navigate(target);
-        })
-        .child(meta_text(label))
+    ui::button(label, ui::ButtonStyle::Ghost, move || {
+        route.set(target);
+        router::navigate(target);
+    })
 }
 
 pub fn footer() -> impl IntoElement {

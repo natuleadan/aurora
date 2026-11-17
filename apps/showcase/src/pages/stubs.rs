@@ -24,16 +24,30 @@ pub fn installation() -> impl IntoElement {
 }
 
 pub fn components_index() -> impl IntoElement {
-    page(
-        "Components",
-        "Every control in one place, grouped by the job it does.",
-        &[
-            ("Action", "Button, button group, toggle and toggle group."),
-            ("Forms", "Input, checkbox, switch, select and slider."),
-            ("Overlays", "Dialog, menu, popover, tooltip and toast."),
-            ("Data", "Table, chart, badge, avatar and progress."),
-        ],
-    )
+    view()
+        .flex_1()
+        .gap_4()
+        .child(ui::section_title(
+            "Components",
+            "Every control in one place, grouped by the job it does.",
+        ))
+        .child(ui::card(
+            "Action",
+            "Button, button group, toggle and toggle group.",
+        ))
+        .child(ui::card(
+            "Forms",
+            "Input, checkbox, switch, select and slider.",
+        ))
+        .child(ui::card(
+            "Overlays",
+            "Dialog, menu, popover, tooltip and toast.",
+        ))
+        .child(ui::card(
+            "Data",
+            "Table, chart, badge, avatar and progress.",
+        ))
+        .child(super::components_live::live())
 }
 
 pub fn directory() -> impl IntoElement {

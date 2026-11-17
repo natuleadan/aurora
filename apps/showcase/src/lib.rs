@@ -47,10 +47,6 @@ fn route_view(route: Signal<&'static str>) -> impl IntoElement {
             move || route.get() == "Components",
             pages::stubs::components_index,
         ))
-        .child(when(
-            move || route.get() == "Components",
-            pages::components_live::live,
-        ))
         .child(when(move || route.get() == "Gallery", pages::home::gallery))
         .child(when(
             move || route.get() == "Installation",

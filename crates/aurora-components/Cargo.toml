@@ -1,0 +1,8 @@
+[package]
+name = "aurora-components"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+nsh-core = "0.5.1"
+nsh-base = "0.5.1"

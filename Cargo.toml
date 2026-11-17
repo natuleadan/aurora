@@ -1,3 +1,11 @@
 [workspace]
-members = ["apps/showcase"]
+members = [
+  "apps/showcase",
+  "crates/aurora-tokens",
+  "crates/aurora-cn",
+  "crates/aurora-registry",
+  "crates/aurora-lint",
+  "crates/aurora-components",
+  "crates/aurora-cli",
+]
 resolver = "3"

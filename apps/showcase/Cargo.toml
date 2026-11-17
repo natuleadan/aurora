@@ -5,6 +5,7 @@ edition = "2024"
 publish = false
 
 [dependencies]
+aurora-components = { path = "../../crates/aurora-components" }
 nsh-core = "0.5.1"
 nsh-base = "0.5.1"
 env_logger = "0.11"

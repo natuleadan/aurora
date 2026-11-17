@@ -1,0 +1,8 @@
+[package]
+name = "aurora-lint"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "aurora-lint"
+path = "src/main.rs"
