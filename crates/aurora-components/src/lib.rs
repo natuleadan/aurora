@@ -103,6 +103,71 @@ pub fn switch(label: &'static str) -> impl IntoElement {
         .child(text(label))
 }
 
+pub fn tabs(options: &'static [(&'static str, &'static str, &'static str)]) -> impl IntoElement {
+    let current = signal(options[0].0);
+    let mut list = nsh_base::tabs()
+        .flex_row()
+        .self_start()
+        .gap_1()
+        .p_1()
+        .rounded(px(8.0))
+        .bg(move || nsh_base::theme().muted);
+    for option in options {
+        let (value, label, _) = *option;
+        let selected = move || current.get() == value;
+        list = list.child(
+            nsh_base::tab()
+                .selected(selected)
+                .on_press(move |_: &()| current.set(value))
+                .px_3()
+                .py_2()
+                .rounded(px(6.0))
+                .child(text(label).text_size(px(13.0))),
+        );
+    }
+    let mut content = view().gap_2();
+    for option in options {
+        let (value, _, body) = *option;
+        content = content.child(when(
+            move || current.get() == value,
+            move || text(body).text_size(px(13.0)),
+        ));
+    }
+    view().gap_3().child(list).child(content)
+}
+
+pub fn accordion(items: &'static [(&'static str, &'static str, &'static str)]) -> impl IntoElement {
+    let open = signal(vec![SharedString::from(items[0].0)]);
+    let mut list = nsh_base::accordion()
+        .value(open)
+        .on_change(move |value: &Vec<SharedString>| open.set(value.clone()));
+    for item in items {
+        let (value, question, answer) = *item;
+        list = list.child(
+            nsh_base::accordion_item()
+                .value(value)
+                .border_b_1()
+                .border_color(move || nsh_base::theme().border)
+                .child(
+                    nsh_base::accordion_header().child(
+                        nsh_base::accordion_trigger()
+                            .flex_row()
+                            .items_center()
+                            .justify_between()
+                            .py_3()
+                            .child(text(question).font_weight(FontWeight::MEDIUM)),
+                    ),
+                )
+                .child(
+                    nsh_base::accordion_panel()
+                        .accessibility_label(question)
+                        .child(view().pb_3().child(text(answer))),
+                ),
+        );
+    }
+    list
+}
+
 pub fn progress(value: Signal<f32>) -> impl IntoElement {
     nsh_base::progress()
         .value(value)

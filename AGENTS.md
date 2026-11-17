@@ -1,14 +1,7 @@
-# AGENTS.md — Aurora
+# AGENTS.md
 
-Technical orientation for agents and contributors. The README describes the
+Technical instructions for agents and contributors. The README describes the
 product; this file explains how to build, verify and work in the repository.
-
-## Overview
-
-Aurora is a reusable component library written in Rust on a native UI engine.
-The same components render on desktop, mobile, web, terminal and GPUI. The
-workspace holds the library crates, a command line tool and a showcase app that
-is also the project's website.
 
 ## Repository layout
 
@@ -37,9 +30,12 @@ Use `pnpm` (never `npm` or `npx`). Run the single gate before pushing:
 pnpm validate
 ```
 
-It runs formatting, clippy with `-D warnings`, the full workspace test suite,
-the engine checks and repository hygiene checks. Checks emit `PASS`, `FAIL` or
-`SKIP` and fail on any error. The same command runs in CI.
+`pnpm validate` is the single gate before pushing. It runs `cargo fmt --all --
+--check`, `cargo clippy --workspace --all-targets -- -D warnings`, `cargo test
+--workspace`, a Cargo check with the `min-publish-age` cooldown, the engine
+checks, the design-system linter, and file-size and generalization checks.
+Checks emit `PASS`, `FAIL` or `SKIP` and fail the build when any check fails.
+The same command runs in CI. Never skip a check because a binary is missing.
 
 The showcase runs on the fixed port 23202:
 
@@ -62,6 +58,22 @@ The web target needs `llvm-tools` installed and its `llvm-ar` exposed through
 - Use short-lived branches (`feat/...`, `fix/...`, `docs/...`), open a pull
   request against `dev` and consolidate into `main` after review. Never rewrite
   published history.
-- Commit format: `type(scope): description`, scope in English, 3–7 words, a body
-  with at least three bullets `- **Title**: body` and one newline between them.
-  Author `leojara95`; never add a `Co-authored-by` trailer.
+
+## Commits
+
+Format: `type(scope): description`, lowercase, in English.
+
+- Header: 3 to 7 words counting `type(scope):`, maximum 100 characters, no
+  trailing period, blank line after it.
+- Body: at least three bullets `- **Title**: body`, each body with 3 to 7 words.
+- Allowed scopes: `client`, `server`, `boxer`, `components`, `tokens`, `cli`,
+  `showcase`, `tools`, `docs`, `ci`, `workflow`, `hooks`, `release`, `license`,
+  `deps`.
+
+## Releases
+
+Versions derive from conventional commits since the last `v*` tag: `fix`,
+`perf` and `revert` bump patch; `feat` bumps minor; a breaking change bumps
+major; `docs`, `ci`, `chore`, `test`, `style` and `refactor` do not trigger a
+release. Before a functional PR toward `main`, update `package.json` and
+`CHANGELOG.md` and verify them with the release check.

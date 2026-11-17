@@ -9,7 +9,11 @@ pub fn header(
     scheme: Signal<u8>,
 ) -> impl IntoElement {
     view()
+        .px_6()
+        .py_4()
         .gap_3()
+        .border_b(px(1.0))
+        .border_color(move || nsh_base::theme().border)
         .child(
             view()
                 .flex_row()
@@ -129,8 +133,9 @@ fn nav_item(
 
 pub fn footer() -> impl IntoElement {
     view()
-        .py_6()
-        .border(px(1.0))
+        .px_6()
+        .py_4()
+        .border_t(px(1.0))
         .border_color(move || nsh_base::theme().border)
         .child(meta_text(
             "Aurora — reusable Rust components, one design system, every platform.",
