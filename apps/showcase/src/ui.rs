@@ -45,8 +45,8 @@ fn styled_button(
             ButtonStyle::Primary => nsh_base::theme().primary,
             _ => nsh_base::theme().background,
         })
-        .hover(|s| s.bg(nsh_base::theme().accent))
-        .active(|s| s.opacity(0.8))
+        .hover(|s| s.opacity(0.85))
+        .active(|s| s.opacity(0.7))
         .child(content.text_color(move || match style {
             ButtonStyle::Primary => nsh_base::theme().primary_foreground,
             _ => nsh_base::theme().foreground,
