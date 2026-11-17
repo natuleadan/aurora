@@ -103,6 +103,161 @@ pub fn switch(label: &'static str) -> impl IntoElement {
         .child(text(label))
 }
 
+pub fn toggle(label: &'static str) -> impl IntoElement {
+    let pressed = signal(false);
+    nsh_base::toggle()
+        .pressed(pressed)
+        .accessibility_label(label)
+        .on_change(move |next: &bool| pressed.set(*next))
+        .px_3()
+        .py_2()
+        .rounded(px(6.0))
+        .border(px(1.0))
+        .border_color(move || nsh_base::theme().border)
+        .pressed_style(|s| s.bg(nsh_base::theme().primary))
+        .child(text(label).text_size(px(13.0)))
+}
+
+pub fn collapsible(summary: &'static str, body: &'static str) -> impl IntoElement {
+    let open = signal(false);
+    nsh_base::collapsible()
+        .open(open)
+        .reveal(true)
+        .gap_2()
+        .child(
+            view()
+                .role(AccessibilityRole::Button)
+                .on_press(move || open.update(|o| *o = !*o))
+                .flex_row()
+                .items_center()
+                .justify_between()
+                .child(text(summary).text_size(px(13.0)))
+                .child(text(move || if open.get() { "-" } else { "+" })),
+        )
+        .child(
+            view().pb_3().child(
+                text(body)
+                    .text_size(px(13.0))
+                    .text_color(move || nsh_base::theme().muted_foreground),
+            ),
+        )
+}
+
+pub fn separator() -> impl IntoElement {
+    view()
+        .h(px(1.0))
+        .w_full()
+        .bg(move || nsh_base::theme().border)
+}
+
+pub fn skeleton(width: f32, height: f32) -> impl IntoElement {
+    view()
+        .w(px(width))
+        .h(px(height))
+        .rounded(px(6.0))
+        .bg(move || nsh_base::theme().muted)
+        .animate_pulse()
+}
+
+pub fn label(text_value: &'static str) -> impl IntoElement {
+    text(text_value)
+        .text_size(px(13.0))
+        .font_weight(FontWeight::MEDIUM)
+}
+
+pub fn alert(title: &'static str, body: &'static str) -> impl IntoElement {
+    view()
+        .p_4()
+        .rounded(px(8.0))
+        .border(px(1.0))
+        .border_color(move || nsh_base::theme().border)
+        .gap_1()
+        .child(
+            text(title)
+                .text_size(px(14.0))
+                .font_weight(FontWeight::SEMIBOLD),
+        )
+        .child(
+            text(body)
+                .text_size(px(13.0))
+                .text_color(move || nsh_base::theme().muted_foreground),
+        )
+}
+
+pub fn avatar(initials: &'static str) -> impl IntoElement {
+    view()
+        .size(px(36.0))
+        .rounded(px(999.0))
+        .bg(move || nsh_base::theme().muted)
+        .items_center()
+        .justify_center()
+        .child(text(initials).text_size(px(13.0)))
+}
+
+pub fn kbd(key: &'static str) -> impl IntoElement {
+    view()
+        .px_2()
+        .py_1()
+        .rounded(px(4.0))
+        .border(px(1.0))
+        .border_color(move || nsh_base::theme().border)
+        .child(text(key).text_size(px(11.0)))
+}
+
+pub fn breadcrumb(items: &'static [&'static str]) -> impl IntoElement {
+    let mut row = view().flex_row().items_center().gap_2();
+    for item in items {
+        row = row.child(
+            text(*item)
+                .text_size(px(12.0))
+                .text_color(move || nsh_base::theme().muted_foreground),
+        );
+    }
+    row
+}
+
+pub fn table(rows: &'static [(&'static str, &'static str)]) -> impl IntoElement {
+    let mut body = view().gap_1();
+    for (left, right) in rows {
+        body = body.child(
+            view()
+                .flex_row()
+                .items_center()
+                .justify_between()
+                .py_2()
+                .border_b_1()
+                .border_color(move || nsh_base::theme().border)
+                .child(text(*left).text_size(px(13.0)))
+                .child(text(*right).text_size(px(13.0))),
+        );
+    }
+    body
+}
+
+pub fn pagination(pages: &'static [&'static str]) -> impl IntoElement {
+    let current = signal(0_usize);
+    let mut row = view().flex_row().items_center().gap_1();
+    for (index, page) in pages.iter().enumerate() {
+        let label = *page;
+        row = row.child(
+            view()
+                .px_3()
+                .py_1()
+                .rounded(px(6.0))
+                .bg(move || {
+                    if current.get() == index {
+                        nsh_base::theme().muted
+                    } else {
+                        nsh_base::theme().background
+                    }
+                })
+                .on_press(move || current.set(index))
+                .child(text(label).text_size(px(12.0))),
+        );
+    }
+    row
+}
+
 pub fn radio_group(options: &'static [(&'static str, &'static str)]) -> impl IntoElement {
     let value = signal(options[0].0);
     let mut group = nsh_base::radio_group().flex_col().gap_2();

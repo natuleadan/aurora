@@ -25,7 +25,40 @@ pub fn live() -> impl IntoElement {
             "A token-styled tooltip",
         ))
         .child(aurora_components::radio_group(&PLANS))
+        .child(ui::section_title(
+            "More components",
+            "Wrappers over native behavior and tokens.",
+        ))
+        .child(aurora_components::toggle("Bold"))
+        .child(aurora_components::collapsible(
+            "Details",
+            "Extra information appears here.",
+        ))
+        .child(aurora_components::separator())
+        .child(aurora_components::skeleton(220.0, 14.0))
+        .child(aurora_components::label("A form label"))
+        .child(aurora_components::alert(
+            "Heads up",
+            "This is an alert surface.",
+        ))
+        .child(aurora_components::avatar("AR"))
+        .child(aurora_components::kbd("Cmd K"))
+        .child(aurora_components::breadcrumb(&[
+            "Home",
+            "Docs",
+            "Components",
+        ]))
+        .child(aurora_components::table(&ROWS))
+        .child(aurora_components::pagination(&PAGES))
 }
+
+static ROWS: [(&str, &str); 3] = [
+    ("Left label", "Right value"),
+    ("Second row", "42"),
+    ("Third row", "Active"),
+];
+
+static PAGES: [&str; 4] = ["1", "2", "3", "..."];
 
 static PLANS: [(&str, &str); 3] = [("basic", "Basic"), ("pro", "Pro"), ("team", "Team")];
 

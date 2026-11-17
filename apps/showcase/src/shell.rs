@@ -18,9 +18,13 @@ pub fn header(
             view()
                 .flex_row()
                 .items_center()
-                .justify_between()
-                .gap_4()
+                .gap_6()
                 .child(brand())
+                .child(when(
+                    move || window().width >= px(600.0),
+                    move || nav_panel(route),
+                ))
+                .child(view().flex_1())
                 .child(
                     view()
                         .flex_row()
@@ -36,10 +40,6 @@ pub fn header(
                         )),
                 ),
         )
-        .child(when(
-            move || window().width >= px(600.0),
-            move || nav_panel(route),
-        ))
         .child(when(
             move || window().width < px(600.0) && menu.get(),
             move || nav_panel(route),
