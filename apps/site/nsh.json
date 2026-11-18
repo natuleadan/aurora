@@ -1,0 +1,14 @@
+{
+  "name": "Aurora Site",
+  "id": "dev.aurora.site",
+  "version": "0.1.0",
+  "build": 1,
+  "appearance": "system",
+  "locales": ["en", "es"],
+  "theme": "theme.json",
+  "capabilities": {
+    "network": { "hosts": ["api.github.com"] }
+  },
+  "rust": ".",
+  "root": "Site"
+}

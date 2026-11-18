@@ -1,5 +1,7 @@
 use nsh_core::prelude::*;
 
+pub use aurora_primitives as primitives;
+
 pub mod families;
 
 pub fn button(label: &'static str, on_press: impl Fn() + 'static) -> impl IntoElement {

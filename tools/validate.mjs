@@ -68,14 +68,17 @@ checkGeneralization();
 
 // --- repo-specific checks are injected below ---
 
-command("nsh check", "nsh", ["check", "apps/showcase"]);
-command("nsh test", "nsh", ["test", "apps/showcase"]);
+command("nsh check showcase", "nsh", ["check", "apps/showcase"]);
+command("nsh test showcase", "nsh", ["test", "apps/showcase"]);
+command("nsh check site", "nsh", ["check", "apps/site"]);
+command("nsh test site", "nsh", ["test", "apps/site"]);
 CHECKS.push({ name: "aurora-lint", run: () => {
-  const dirs = ["apps/showcase/src/pages", "crates/aurora-tokens/src",
-    "crates/aurora-cn/src", "crates/aurora-registry/src",
-    "crates/aurora-components/src", "crates/aurora-cli/src"];
+  const dirs = ["apps/showcase/src/pages", "apps/site/src/pages", "crates/aurora-tokens/src",
+    "crates/aurora-cn/src", "crates/aurora-primitives/src", "crates/aurora-registry/src",
+    "crates/aurora-components/src", "crates/aurora-cli/src", "crates/aurora-test-support/src"];
   const files = ["apps/showcase/src/lib.rs", "apps/showcase/src/router.rs",
-    "apps/showcase/src/shell.rs", "apps/showcase/src/ui.rs"];
+    "apps/showcase/src/shell.rs", "apps/showcase/src/ui.rs",
+    "apps/site/src/lib.rs", "apps/site/src/router.rs", "apps/site/src/shell.rs"];
   for (const dir of dirs) {
     try { for (const f of readdirSync(join(ROOT, dir))) if (f.endsWith(".rs")) files.push(join(dir, f)); }
     catch { /* dir may not exist */ }

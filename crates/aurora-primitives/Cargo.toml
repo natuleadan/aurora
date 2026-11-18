@@ -1,0 +1,8 @@
+[package]
+name = "aurora-primitives"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+aurora-tokens = { path = "../aurora-tokens" }
+aurora-cn = { path = "../aurora-cn" }
