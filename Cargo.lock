@@ -217,6 +217,7 @@ version = "0.1.0"
 name = "aurora-components"
 version = "0.1.0"
 dependencies = [
+ "aurora-primitives",
  "nsh-base",
  "nsh-core",
 ]
@@ -224,6 +225,14 @@ dependencies = [
 [[package]]
 name = "aurora-lint"
 version = "0.1.0"
+
+[[package]]
+name = "aurora-primitives"
+version = "0.1.0"
+dependencies = [
+ "aurora-cn",
+ "aurora-tokens",
+]
 
 [[package]]
 name = "aurora-registry"
@@ -243,6 +252,32 @@ dependencies = [
  "nsh-platform-windows",
  "nsh-testing",
  "serde_json",
+]
+
+[[package]]
+name = "aurora-site"
+version = "0.1.0"
+dependencies = [
+ "aurora-cn",
+ "aurora-components",
+ "aurora-tokens",
+ "env_logger",
+ "nsh-base",
+ "nsh-core",
+ "nsh-engine",
+ "nsh-platform-linux",
+ "nsh-platform-macos",
+ "nsh-platform-windows",
+ "nsh-testing",
+ "serde_json",
+]
+
+[[package]]
+name = "aurora-test-support"
+version = "0.1.0"
+dependencies = [
+ "aurora-primitives",
+ "aurora-tokens",
 ]
 
 [[package]]

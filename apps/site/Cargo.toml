@@ -1,0 +1,27 @@
+[package]
+name = "aurora-site"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+aurora-components = { path = "../../crates/aurora-components" }
+aurora-tokens = { path = "../../crates/aurora-tokens" }
+aurora-cn = { path = "../../crates/aurora-cn" }
+serde_json = "1.0.154"
+nsh-core = "0.5.1"
+nsh-base = "0.5.1"
+env_logger = "0.11"
+
+[dev-dependencies]
+nsh-engine = "0.5.1"
+nsh-testing = "0.5.1"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+nsh-platform-linux = { version = "0.5.1", default-features = false, features = ["plot", "term"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+nsh-platform-macos = { version = "0.5.1", default-features = false, features = ["plot", "term"] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+nsh-platform-windows = { version = "0.5.1", default-features = false, features = ["plot", "term"] }

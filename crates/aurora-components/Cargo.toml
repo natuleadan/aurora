@@ -6,3 +6,4 @@ edition = "2024"
 [dependencies]
 nsh-core = "0.5.1"
 nsh-base = "0.5.1"
+aurora-primitives = { path = "../aurora-primitives" }
