@@ -1,10 +1,27 @@
-node_modules/
+# Build / Rust
 target/
-.nsh/
-/.local/
-/.env
-/.nsh/out/
-/.nsh/cache/
+**/*.rs.bk
+
+# Node & Tooling
+node_modules/
+dist/
+pnpm-debug.log*
+
+# Environment and private files
+.env
+.env.*
+!.env.example
+.local/
+internal/
+
+# Editor / OS / logs
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
 *.log
-/node_modules
+/.logs
+
+# NSH engine (aurora-specific)
+.nsh/
