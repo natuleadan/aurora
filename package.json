@@ -13,10 +13,12 @@
   "scripts": {
     "validate": "node tools/validate.mjs",
     "notices": "node helpers/tools/third-party-notices.mjs",
-    "notices:check": "node helpers/tools/third-party-notices.mjs --check"
+    "notices:check": "node helpers/tools/third-party-notices.mjs --check",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.3",
-    "@commitlint/config-conventional": "^20.5.3"
+    "@commitlint/config-conventional": "^20.5.3",
+    "husky": "^9.1.7"
   }
 }
