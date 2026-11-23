@@ -4,7 +4,7 @@ Technical operating rules for this Rust repository.
 
 ## 1. Repository Scope
 
-- Native rendering engine over the declarative agent-to-UI JSON protocol (`aurora-core`).
+- Dynamic multi-device UI/UX rendering engine driven by declarative agent-to-UI JSON (`aurora-core`).
 - Pure-Cargo workspace (`crates/core` library + `crates/xtask` automation runner); no Node.js or Python runtime tooling (`package.json`, `pnpm-lock.yaml`, `husky`, `.prettierrc` are forbidden).
 
 ## 2. Toolchain & Validation
