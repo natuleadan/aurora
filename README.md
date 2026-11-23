@@ -1,7 +1,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/natuleadan/.github/main/profile/assets/banners/aurora.svg" alt="Aurora Constellation" width="100%" /></p>
 
 <h1 align="center">Aurora</h1>
-<p align="center"><strong>Sovereign native rendering engine over the declarative agent-to-UI protocol in pure native Rust across Web, Mobile, and Desktop</strong></p>
+<p align="center"><strong>Sovereign dynamic multi-device UI/UX rendering engine in pure native Rust across Web, Mobile, and Desktop</strong></p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Language-Rust_2024-orange?style=flat" alt="Rust 2024" />
@@ -14,19 +14,19 @@
 
 ## 1. What is Aurora?
 
-Aurora is a 100% pure native Rust **native rendering engine over the declarative agent-to-UI protocol** implementing the declarative agent-to-UI JSON protocol natively in Rust. Given incoming structured data or agent-emitted agent-to-UI JSON payloads over decoupled wire protocols (REST, WebSocket/WSS, gRPC), Aurora dynamically synthesizes safe, responsive interfaces across **Web, iOS, Android, macOS, and Windows** and serves as the client-side rendering engine for Pulsar with zero direct Cargo crate coupling.
+Aurora is a 100% pure native Rust **dynamic multi-device UI/UX rendering engine** implementing the declarative agent-to-UI JSON protocol natively in Rust. Given incoming structured data or agent-emitted agent-to-UI JSON payloads over decoupled wire protocols (REST, WebSocket/WSS, gRPC), Aurora dynamically synthesizes safe, responsive interfaces across **Web, iOS, Android, macOS, and Windows** and serves as the client-side rendering engine for Pulsar with zero direct Cargo crate coupling.
 
 ### What is inside
 
 Aurora is structured around a layered modular six-file modular architecture (`entity`, `dto`, `repository`, `service`, `controller`, `mod`) atop a pure-Cargo workspace (`crates/core` and `crates/xtask`), combining design tokens, primitives, a native node-graph canvas, and an agent-to-UI schema renderer verified by eight validation gates.
 
-> **Current scope:** This release ships the native validation harness, the six-file modular reference domain (`modules/math`), and the crate contracts. Transports, sandboxes, domain engines and protocol integrations described below are planned milestones, not shipped capabilities.
+> **Current scope:** This release ships the native validation harness, the six-file modular reference domain (`modules/math`), and the crate contracts. Transports, sandboxes, domain engines and protocol integrations described throughout this document are planned milestones, not shipped capabilities.
 
 ## 2. Why Aurora?
 
 Most AI interfaces either hardcode static frontend templates or allow agents to emit unsafe raw HTML/JavaScript inside bloated browser runtimes.
 
-- **Declarative protocol transcription**: Agents send structured JSON protocol messages; Aurora deterministically synthesizes and updates the live interface.
+- **Agent-driven UI/UX auto-generation**: Agents send structured JSON protocol messages; Aurora deterministically synthesizes and updates the live interface.
 - **True multi-platform export**: One pure-Rust UI core targeting Web, iOS, Android, macOS, and Windows with consistent design tokens.
 - **Required client engine for Pulsar**: Provides the client-side visual surface for Pulsar agent swarms without browser-wrapper or JavaScript runtime overhead.
 - **Deterministic headless verification**: Token contrast, layout invariants, and declarative schemas are verified in headless Rust tests.
